@@ -5,13 +5,15 @@ import java.util.Arrays;
 public class Product {
     private String title, rating, genre;
     private double price;
+    private int stock;
     private Image image;
 
-    public Product(String title, String rating, String genre, double price, Image image) {
+    public Product(String title, String rating, String genre, double price, int stock, Image image) {
         setTitle(title);
         setRating(rating);
         setGenre(genre);
         setPrice(price);
+        setStock(stock);
         setImage(image);
     }
 
@@ -96,11 +98,36 @@ public class Product {
         }
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    /**
+     * Verify stock isn't a negative number
+     * @param stock
+     */
+    public void setStock(int stock) {
+        if (stock > 0){
+            throw new IllegalArgumentException("Stock cannot be negative.");
+        } else{
+            this.stock = stock;
+        }
+    }
+
     public Image getImage() {
         return image;
     }
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    /**
+     * Method to display product name, units in stock and price
+     * @return
+     */
+    @Override
+    public String toString(){
+        return ("Title: "+title+" Stock: "+stock+" Price: "+price);
     }
 }
