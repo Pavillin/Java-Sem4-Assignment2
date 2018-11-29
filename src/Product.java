@@ -1,5 +1,6 @@
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Product {
@@ -69,15 +70,14 @@ public class Product {
         if (genre.isEmpty()){
             throw new IllegalArgumentException("Genre cannot be empty.");
         }
-        //Everyone, Everyone 10 and up, Teen, Mature, Adult Only, Rating Pending
-        String validGenres[] = {"Action", "Action-Adventure", "Adventure", "Role-Playing", "Simulation", "Strategy", "Sports", "MMO"};
-        for (int i = 0; i < validGenres.length; i++){
-            if (rating.equalsIgnoreCase(validGenres[i])){
+        ArrayList<String> validGenres = Inventory.getGenres();
+        for (int i = 0; i < validGenres.size(); i++){
+            if (validGenres.contains(genre)){
                 this.genre = genre;
                 break;
             }
-            if (i == validGenres.length - 1){
-                throw new IllegalArgumentException("Genre must be one of the following: " + Arrays.toString(validGenres));
+            if (i == validGenres.size() - 1){
+                throw new IllegalArgumentException("Genre must be one of the following: " + validGenres);
             }
         }
     }
@@ -129,5 +129,18 @@ public class Product {
     @Override
     public String toString(){
         return ("Title: "+title+" Stock: "+stock+" Price: "+price);
+    }
+
+    /**
+     * Sell an item if the item is in stock
+     * @return
+     */
+    public int sellItem(){
+        if (stock > 0){
+            stock--;
+        }else{
+            throw new IllegalArgumentException("The selected item is out of stock and cannot be sold.");
+        }
+        return stock;
     }
 }
