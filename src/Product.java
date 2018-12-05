@@ -91,8 +91,8 @@ public class Product {
      * @param price
      */
     public void setPrice(double price) {
-        if (price <= 0){
-            throw new IllegalArgumentException("Price must be greater than 0");
+        if (price < 0){
+            throw new IllegalArgumentException("Price cannot be negative.");
         }else{
             this.price = price;
         }
@@ -107,7 +107,7 @@ public class Product {
      * @param stock
      */
     public void setStock(int stock) {
-        if (stock > 0){
+        if (stock < 0){
             throw new IllegalArgumentException("Stock cannot be negative.");
         } else{
             this.stock = stock;
