@@ -15,14 +15,14 @@ public class Inventory {
         return genres;
     }
     public static ArrayList getProducts(){
-        Product product1 = new Product("Rocket League", "E", "Sports", 29.99, 7, new Image("images/rocketleague.jpg"));
-        Product product2 = new Product("Grand Theft Auto V", "M", "Action", 29.99, 4, new Image("images/gta5.jpg"));
-        Product product3 = new Product("Red Dead Redemption 2", "M", "Action-Adventure", 79.99, 10, new Image("images/rdr2.jpg"));
-        Product product4 = new Product("Firewatch", "M", "Adventure", 14.99, 9, new Image("images/firewatch.jpg"));
-        Product product5 = new Product("Skyrim", "M", "Role-Playing", 19.99, 3, new Image("images/skyrim.jpg"));
-        Product product6 = new Product("Arma3", "M", "Simulation", 39.99, 11, new Image("images/a3.jpg"));
-        Product product7 = new Product("Civilization VI", "E+10", "Strategy", 59.99, 5, new Image("images/civvi.jpg"));
-        Product product8 = new Product("ArcheAge", "M", "MMO", 0, 11, new Image("images/archeage.jpg"));
+        Product product1 = new Product("Rocket League", "E", "Sports", 29.99, 7, new Image("Images/rocketleague.jpg"));
+        Product product2 = new Product("Grand Theft Auto V", "M", "Action", 29.99, 4, new Image("Images/gta5.jpg"));
+        Product product3 = new Product("Red Dead Redemption 2", "M", "Action-Adventure", 79.99, 10, new Image("Images/rdr2.jpg"));
+        Product product4 = new Product("Firewatch", "M", "Adventure", 14.99, 9, new Image("Images/firewatch.jpg"));
+        Product product5 = new Product("Skyrim", "M", "Role-Playing", 19.99, 3, new Image("Images/skyrim.png"));
+        Product product6 = new Product("Arma3", "M", "Simulation", 39.99, 11, new Image("Images/a3.jpg"));
+        Product product7 = new Product("Civilization VI", "E10+", "Strategy", 59.99, 5, new Image("Images/civvi.jpg"));
+        Product product8 = new Product("ArcheAge", "M", "MMO", 0, 11, new Image("Images/archeage.jpg"));
 
         ArrayList<Product> products = new ArrayList<>();
         products.add(product1);
