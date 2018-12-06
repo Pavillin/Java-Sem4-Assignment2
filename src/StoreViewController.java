@@ -24,6 +24,7 @@ public class StoreViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources){
         ComboBox.getItems().addAll(Inventory.getGenres());
         ListView.getItems().addAll(Inventory.getProducts());
+        RadioButtonAZ.fire();
         initListView();
 
         // Add all radio buttons into a toggle group
@@ -44,6 +45,7 @@ public class StoreViewController implements Initializable {
                     ListView.getItems().clear();
                     ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
                     initListView();
+                    sortProducts();
                 })
         );
 
@@ -54,6 +56,7 @@ public class StoreViewController implements Initializable {
 
         Inventory.setProductTreeMap();
         updateViewWithSelectedProduct();
+        sortProducts();
     }
 
     /**
@@ -71,7 +74,6 @@ public class StoreViewController implements Initializable {
     public void updateViewWithSelectedProduct() {
         Product product = (Product) ListView.getSelectionModel().getSelectedItem();
         ImageView.setImage(product.getImage());
-        sortProducts();
     }
 
     /**
