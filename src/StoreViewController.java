@@ -1,12 +1,13 @@
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
-public class StoreViewController {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class StoreViewController implements Initializable {
 
     @FXML private ListView<?> ListView;
     @FXML private ImageView ImageView;
@@ -18,4 +19,24 @@ public class StoreViewController {
     @FXML private RadioButton RadioButtonZA;
     @FXML private Label LabelInvValue;
     @FXML private Label LabelCatValue;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources){
+        ComboBox.getItems().addAll(Inventory.getGenres());
+        ListView.getItems().addAll(Inventory.getProducts());
+
+        ListView.getSelectionModel().selectFirst();
+        ListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        ListView.getSelectionModel().selectedIndexProperty().addListener(
+                (observable, oldValue, newValue) -> updateViewWithSelectedProduct()
+        );
+
+        updateViewWithSelectedProduct();
+    }
+
+    public void updateViewWithSelectedProduct() {
+        Product product = (Product) ListView.getSelectionModel().getSelectedItem();
+        ImageView.setImage(product.getImage());
+    }
 }
