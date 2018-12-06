@@ -57,6 +57,12 @@ public class StoreViewController implements Initializable {
                 (observable, oldValue, newValue) -> sortProducts()
         );
 
+        SellButton.setOnAction((event -> {
+            Product p = ListView.getSelectionModel().getSelectedItem();
+            p.sellItem();
+            ListView.refresh();
+        }));
+
         Inventory.setProductTreeMap();
         updateViewWithSelectedProduct();
         sortProducts();
