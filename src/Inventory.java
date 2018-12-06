@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 public class Inventory {
-    TreeMap<String, LinkedList> productTreeMap = new TreeMap<>();
-    LinkedList<Product> productLinkedList = new LinkedList<>();
+    static TreeMap<String, LinkedList> productTreeMap = new TreeMap<>();
+
 
     public static ArrayList getGenres(){
         String validGenres[] = {"Action", "Action-Adventure", "Adventure", "Role-Playing", "Simulation",
@@ -41,7 +41,7 @@ public class Inventory {
      * @param genre
      * @return
      */
-    public ArrayList getProductsInGenre(String genre){
+    public static ArrayList getProductsInGenre(String genre){
         ArrayList<Product> productsInGenre = new ArrayList<>();
         productsInGenre.addAll(productTreeMap.get(genre));
 
@@ -53,12 +53,22 @@ public class Inventory {
      * otherwise create a new genre and add product
      * @param product
      */
-    public void addProductToGenre(Product product){
+    public static void addProductToGenre(Product product){
+        //LinkedList<Product> productLinkedList = new LinkedList<>();
         if (!productTreeMap.containsKey(product.getGenre())){
+            LinkedList<Product> productLinkedList = new LinkedList<>();
             productLinkedList.add(product);
             productTreeMap.put(product.getGenre(), productLinkedList);
         } else {
             productTreeMap.get(product.getGenre()).add(product);
+        }
+    }
+
+    public static void setProductTreeMap(){
+        ArrayList<Product> products = getProducts();
+
+        for (Product product : products){
+            addProductToGenre(product);
         }
     }
 }
