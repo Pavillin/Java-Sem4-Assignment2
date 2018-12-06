@@ -25,10 +25,12 @@ public class StoreViewController implements Initializable {
 
         initListView();
 
+        // Update the view when a new product is selected
         ListView.getSelectionModel().selectedIndexProperty().addListener(
                 (observable, oldValue, newValue) -> updateViewWithSelectedProduct()
         );
 
+        // Update the list to show products in the selected genre
         ComboBox.getSelectionModel().selectedIndexProperty().addListener(
                 ((observable, oldValue, newValue) -> {
                     ListView.getItems().clear();
@@ -40,11 +42,18 @@ public class StoreViewController implements Initializable {
         updateViewWithSelectedProduct();
     }
 
+    /**
+     * Setup the ListView by only allowing one item to be selected at a time
+     * and automatically selecting the first item in the list
+     */
     public void initListView(){
         ListView.getSelectionModel().selectFirst();
         ListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
+    /**
+     * Update the view to match the selected product in the list
+     */
     public void updateViewWithSelectedProduct() {
         Product product = (Product) ListView.getSelectionModel().getSelectedItem();
         ImageView.setImage(product.getImage());
