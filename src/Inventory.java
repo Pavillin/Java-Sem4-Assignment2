@@ -22,6 +22,7 @@ public class Inventory {
         Product product5 = new Product("Skyrim", "M", "Role-Playing", 19.99, 3, new Image("Images/skyrim.png"));
         Product product6 = new Product("Arma3", "M", "Simulation", 39.99, 11, new Image("Images/a3.jpg"));
         Product product7 = new Product("Civilization VI", "E10+", "Strategy", 59.99, 5, new Image("Images/civvi.jpg"));
+        Product product9 = new Product("ZrcheAge", "M", "MMO", 8.99, 11, new Image("Images/archeage.jpg"));
         Product product8 = new Product("ArcheAge", "M", "MMO", 0, 11, new Image("Images/archeage.jpg"));
 
         ArrayList<Product> products = new ArrayList<>();
@@ -32,6 +33,7 @@ public class Inventory {
         products.add(product5);
         products.add(product6);
         products.add(product7);
+        products.add(product9);
         products.add(product8);
         return products;
     }
