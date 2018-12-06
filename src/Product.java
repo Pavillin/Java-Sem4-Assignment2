@@ -128,7 +128,7 @@ public class Product {
      */
     @Override
     public String toString(){
-        return ("Title: "+title+" Stock: "+stock+" Price: "+price);
+        return String.format("%-25s %d @ $%.2f", title, stock, price);
     }
 
     /**
