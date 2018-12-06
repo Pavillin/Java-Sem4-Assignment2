@@ -66,9 +66,7 @@ public class Inventory {
         }
     }
 
-    public static void setProductTreeMap(){
-        ArrayList<Product> products = getProducts();
-
+    public static void setProductTreeMap(ArrayList<Product> products){
         for (Product product : products){
             addProductToGenre(product);
         }
