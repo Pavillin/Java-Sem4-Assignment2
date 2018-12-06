@@ -22,8 +22,14 @@ public class StoreViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources){
         ComboBox.getItems().addAll(Inventory.getGenres());
         ListView.getItems().addAll(Inventory.getProducts());
-
         initListView();
+
+        // Add all radio buttons into a toggle group
+        ToggleGroup sortToggleGroup = new ToggleGroup();
+        RadioButtonHL.setToggleGroup(sortToggleGroup);
+        RadioButtonLH.setToggleGroup(sortToggleGroup);
+        RadioButtonAZ.setToggleGroup(sortToggleGroup);
+        RadioButtonZA.setToggleGroup(sortToggleGroup);
 
         // Update the view when a new product is selected
         ListView.getSelectionModel().selectedIndexProperty().addListener(
@@ -38,6 +44,7 @@ public class StoreViewController implements Initializable {
                     initListView();
                 })
         );
+
         Inventory.setProductTreeMap();
         updateViewWithSelectedProduct();
     }
