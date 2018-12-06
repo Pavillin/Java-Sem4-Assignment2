@@ -2,9 +2,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class StoreViewController implements Initializable {
@@ -25,14 +23,26 @@ public class StoreViewController implements Initializable {
         ComboBox.getItems().addAll(Inventory.getGenres());
         ListView.getItems().addAll(Inventory.getProducts());
 
-        ListView.getSelectionModel().selectFirst();
-        ListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        initListView();
 
         ListView.getSelectionModel().selectedIndexProperty().addListener(
                 (observable, oldValue, newValue) -> updateViewWithSelectedProduct()
         );
 
+        ComboBox.getSelectionModel().selectedIndexProperty().addListener(
+                ((observable, oldValue, newValue) -> {
+                    ListView.getItems().clear();
+                    ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
+                    initListView();
+                })
+        );
+        Inventory.setProductTreeMap();
         updateViewWithSelectedProduct();
+    }
+
+    public void initListView(){
+        ListView.getSelectionModel().selectFirst();
+        ListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     public void updateViewWithSelectedProduct() {
