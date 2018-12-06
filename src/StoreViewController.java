@@ -20,15 +20,22 @@ public class StoreViewController implements Initializable {
     @FXML private RadioButton RadioButtonZA;
     @FXML private Label LabelInvValue;
     @FXML private Label LabelGenreValue;
+
+    // Create local list of products that can be manipulated
     ArrayList<Product> inventory = Inventory.getProducts();
+
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
+        // Setup view objects
         ComboBox.getItems().addAll(Inventory.getGenres());
         ListView.getItems().addAll(inventory);
         RadioButtonAZ.fire();
         initListView();
-
+        Inventory.setProductTreeMap(inventory);
+        updateViewWithSelectedProduct();
+        sortProducts();
+        invVal();
+        genreVal();
         // Add all radio buttons into a toggle group
         ToggleGroup sortToggleGroup = new ToggleGroup();
         RadioButtonHL.setToggleGroup(sortToggleGroup);
@@ -43,27 +50,16 @@ public class StoreViewController implements Initializable {
 
         // Update the list to show products in the selected genre
         ComboBox.getSelectionModel().selectedIndexProperty().addListener(
-                ((observable, oldValue, newValue) -> {
-                    ListView.getItems().clear();
-                    ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
-                    initListView();
-                    sortProducts();
-                    genreVal();
-                })
+                (observable, oldValue, newValue) -> genreSelected()
         );
 
-        //Sort the products list when a radio button is selected
+        // Sort the products list when a radio button is selected
         sortToggleGroup.selectedToggleProperty().addListener(
                 (observable, oldValue, newValue) -> sortProducts()
         );
 
+        // Sell the selected product
         SellButton.setOnAction((event -> sellButtonPushed()));
-
-        Inventory.setProductTreeMap(inventory);
-        updateViewWithSelectedProduct();
-        sortProducts();
-        invVal();
-        genreVal();
     }
 
     /**
@@ -187,6 +183,14 @@ public class StoreViewController implements Initializable {
         inventory.add(p);
         ListView.refresh();
         invVal();
+        genreVal();
+    }
+
+    public void genreSelected(){
+        ListView.getItems().clear();
+        ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
+        initListView();
+        sortProducts();
         genreVal();
     }
 }
