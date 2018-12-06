@@ -57,13 +57,9 @@ public class StoreViewController implements Initializable {
                 (observable, oldValue, newValue) -> sortProducts()
         );
 
-        SellButton.setOnAction((event -> {
-            Product p = ListView.getSelectionModel().getSelectedItem();
-            p.sellItem();
-            ListView.refresh();
-        }));
+        SellButton.setOnAction((event -> sellButtonPushed()));
 
-        Inventory.setProductTreeMap();
+        Inventory.setProductTreeMap(inventory);
         updateViewWithSelectedProduct();
         sortProducts();
         invVal();
@@ -94,7 +90,7 @@ public class StoreViewController implements Initializable {
         ArrayList<Product> sorted;
         if (RadioButtonAZ.isSelected()) {
             if (ComboBox.getValue() == null) {
-                sorted = Inventory.getProducts();
+                sorted = inventory;
                 Collections.sort(sorted);
                 ListView.getItems().clear();
                 ListView.getItems().addAll(sorted);
@@ -108,7 +104,7 @@ public class StoreViewController implements Initializable {
         }
         if (RadioButtonZA.isSelected()) {
             if (ComboBox.getValue() == null) {
-                sorted = Inventory.getProducts();
+                sorted = inventory;
                 Collections.sort(sorted, Collections.reverseOrder());
                 ListView.getItems().clear();
                 ListView.getItems().addAll(sorted);
@@ -122,7 +118,7 @@ public class StoreViewController implements Initializable {
         }
         if (RadioButtonHL.isSelected()) {
             if (ComboBox.getValue() == null) {
-                sorted = Inventory.getProducts();
+                sorted = inventory;
                 Collections.sort(sorted, (a,b) -> (a.getPrice() < b.getPrice()) ? 1 : -1);
                 ListView.getItems().clear();
                 ListView.getItems().addAll(sorted);
@@ -136,7 +132,7 @@ public class StoreViewController implements Initializable {
         }
         if (RadioButtonLH.isSelected()) {
             if (ComboBox.getValue() == null) {
-                sorted = Inventory.getProducts();
+                sorted = inventory;
                 Collections.sort(sorted, (a,b) -> (a.getPrice() > b.getPrice()) ? 1 : -1);
                 ListView.getItems().clear();
                 ListView.getItems().addAll(sorted);
@@ -178,5 +174,19 @@ public class StoreViewController implements Initializable {
                     .sum();
             LabelGenreValue.setText("$ " + df.format(val));
         }
+    }
+
+    /**
+     * Sell an item from stock and update the
+     * inventory and stock values
+     */
+    public void sellButtonPushed(){
+        Product p = ListView.getSelectionModel().getSelectedItem();
+        inventory.remove(p);
+        p.sellItem();
+        inventory.add(p);
+        ListView.refresh();
+        invVal();
+        genreVal();
     }
 }
