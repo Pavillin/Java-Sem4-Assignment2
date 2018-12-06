@@ -3,7 +3,7 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Product {
+public class Product implements Comparable<Product> {
     private String title, rating, genre;
     private double price;
     private int stock;
@@ -142,5 +142,19 @@ public class Product {
             throw new IllegalArgumentException("The selected item is out of stock and cannot be sold.");
         }
         return stock;
+    }
+
+    /**
+     * Sort the products by title and verify they're not the same product
+     * @param product
+     * @return
+     */
+    @Override
+    public int compareTo(Product product) {
+        if (this.getTitle().equals(product.getTitle())){
+            return 0;
+        } else{
+            return this.getTitle().compareToIgnoreCase(product.getTitle());
+        }
     }
 }
