@@ -31,11 +31,7 @@ public class StoreViewController implements Initializable {
         ListView.getItems().addAll(inventory);
         RadioButtonAZ.fire();
         initListView();
-        Inventory.setProductTreeMap(inventory);
-        updateViewWithSelectedProduct();
-        sortProducts();
-        invVal();
-        genreVal();
+
         // Add all radio buttons into a toggle group
         ToggleGroup sortToggleGroup = new ToggleGroup();
         RadioButtonHL.setToggleGroup(sortToggleGroup);
@@ -60,6 +56,13 @@ public class StoreViewController implements Initializable {
 
         // Sell the selected product
         SellButton.setOnAction((event -> sellButtonPushed()));
+
+        // Finalize view setup
+        Inventory.setProductTreeMap(inventory);
+        updateViewWithSelectedProduct();
+        sortProducts();
+        invVal();
+        genreVal();
     }
 
     /**
@@ -186,6 +189,9 @@ public class StoreViewController implements Initializable {
         genreVal();
     }
 
+    /**
+     * Update the list with the products in the selected genre
+     */
     public void genreSelected(){
         ListView.getItems().clear();
         ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
