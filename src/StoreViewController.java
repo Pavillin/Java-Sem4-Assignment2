@@ -19,7 +19,7 @@ public class StoreViewController implements Initializable {
     @FXML private RadioButton RadioButtonAZ;
     @FXML private RadioButton RadioButtonZA;
     @FXML private Label LabelInvValue;
-    @FXML private Label LabelCatValue;
+    @FXML private Label LabelGenreValue;
     ArrayList<Product> inventory = Inventory.getProducts();
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -48,6 +48,7 @@ public class StoreViewController implements Initializable {
                     ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
                     initListView();
                     sortProducts();
+                    genreVal();
                 })
         );
 
@@ -60,6 +61,7 @@ public class StoreViewController implements Initializable {
         updateViewWithSelectedProduct();
         sortProducts();
         invVal();
+        genreVal();
     }
 
     /**
@@ -144,6 +146,9 @@ public class StoreViewController implements Initializable {
         initListView();
     }
 
+    /**
+     * Calculate and display the total value of the inventory
+     */
     public void invVal(){
 
         DecimalFormat df = new DecimalFormat("#.00");
@@ -151,5 +156,21 @@ public class StoreViewController implements Initializable {
                 .mapToDouble(p -> p.getPrice() * p.getStock())
                 .sum();
         LabelInvValue.setText("$ "+ df.format(val));
+    }
+
+    /**
+     * Calculate and display the value of products in selected genre
+     * If not genre is selected "N/A" is displayed
+     */
+    public void genreVal(){
+        if (ComboBox.getValue() == null){
+            LabelGenreValue.setText("N/A");
+        }else {
+            DecimalFormat df = new DecimalFormat("#.00");
+            Double val = ListView.getItems().stream()
+                    .mapToDouble(p -> p.getPrice() * p.getStock())
+                    .sum();
+            LabelGenreValue.setText("$ " + df.format(val));
+        }
     }
 }
