@@ -3,6 +3,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -19,11 +20,12 @@ public class StoreViewController implements Initializable {
     @FXML private RadioButton RadioButtonZA;
     @FXML private Label LabelInvValue;
     @FXML private Label LabelCatValue;
-
+    ArrayList<Product> inventory = Inventory.getProducts();
     @Override
     public void initialize(URL location, ResourceBundle resources){
+
         ComboBox.getItems().addAll(Inventory.getGenres());
-        ListView.getItems().addAll(Inventory.getProducts());
+        ListView.getItems().addAll(inventory);
         RadioButtonAZ.fire();
         initListView();
 
@@ -57,6 +59,7 @@ public class StoreViewController implements Initializable {
         Inventory.setProductTreeMap();
         updateViewWithSelectedProduct();
         sortProducts();
+        invVal();
     }
 
     /**
@@ -139,5 +142,14 @@ public class StoreViewController implements Initializable {
         }
 
         initListView();
+    }
+
+    public void invVal(){
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        Double val = inventory.stream()
+                .mapToDouble(p -> p.getPrice() * p.getStock())
+                .sum();
+        LabelInvValue.setText("$ "+ df.format(val));
     }
 }
