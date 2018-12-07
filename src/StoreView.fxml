@@ -9,24 +9,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StoreViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StoreViewController">
    <children>
-      <ListView fx:id="ListView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="350.0" />
-      <ImageView fx:id="ImageView" fitHeight="200.0" fitWidth="160.0" layoutX="426.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="SellButton" layoutX="471.0" layoutY="222.0" mnemonicParsing="false" text="Sell 1 Unit" />
-      <ComboBox fx:id="ComboBox" layoutX="14.0" layoutY="221.0" prefWidth="150.0" promptText="Select Category" />
+      <ListView fx:id="listView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="350.0" />
+      <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="160.0" layoutX="426.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="sellButton" layoutX="471.0" layoutY="222.0" mnemonicParsing="false" text="Sell 1 Unit" />
+      <ComboBox fx:id="comboBox" layoutX="14.0" layoutY="221.0" prefWidth="150.0" promptText="Select Category" />
       <Label layoutX="260.0" layoutY="224.0" text="Sort">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <RadioButton fx:id="RadioButtonHL" layoutX="229.0" layoutY="246.0" mnemonicParsing="false" text="Price high to low" />
-      <RadioButton fx:id="RadioButtonLH" layoutX="229.0" layoutY="270.0" mnemonicParsing="false" text="Price low to high" />
-      <RadioButton fx:id="RadioButtonAZ" layoutX="229.0" layoutY="294.0" mnemonicParsing="false" text="Product name A to Z" />
-      <RadioButton fx:id="RadioButtonZA" layoutX="229.0" layoutY="318.0" mnemonicParsing="false" text="Product name Z to A" />
+      <RadioButton fx:id="radioButtonHL" layoutX="229.0" layoutY="246.0" mnemonicParsing="false" text="Price high to low" />
+      <RadioButton fx:id="radioButtonLH" layoutX="229.0" layoutY="270.0" mnemonicParsing="false" text="Price low to high" />
+      <RadioButton fx:id="radioButtonAZ" layoutX="229.0" layoutY="294.0" mnemonicParsing="false" text="Product name A to Z" />
+      <RadioButton fx:id="radioButtonZA" layoutX="229.0" layoutY="318.0" mnemonicParsing="false" text="Product name Z to A" />
       <Label layoutX="14.0" layoutY="335.0" text="Total Inventory Value" />
       <Label layoutX="14.0" layoutY="359.0" text="Total Genre Value" />
-      <Label fx:id="LabelInvValue" layoutX="136.0" layoutY="335.0" text="Label" />
-      <Label fx:id="LabelGenreValue" layoutX="136.0" layoutY="359.0" text="Label" />
+      <Label fx:id="labelInvValue" layoutX="136.0" layoutY="335.0" text="Label" />
+      <Label fx:id="labelGenreValue" layoutX="136.0" layoutY="359.0" text="Label" />
    </children>
 </AnchorPane>

@@ -10,16 +10,16 @@ import java.util.ResourceBundle;
 
 public class StoreViewController implements Initializable {
 
-    @FXML private ListView<Product> ListView;
-    @FXML private ImageView ImageView;
-    @FXML private Button SellButton;
-    @FXML private ComboBox<String> ComboBox;
-    @FXML private RadioButton RadioButtonHL;
-    @FXML private RadioButton RadioButtonLH;
-    @FXML private RadioButton RadioButtonAZ;
-    @FXML private RadioButton RadioButtonZA;
-    @FXML private Label LabelInvValue;
-    @FXML private Label LabelGenreValue;
+    @FXML private ListView<Product> listView;
+    @FXML private ImageView imageView;
+    @FXML private Button sellButton;
+    @FXML private ComboBox<String> comboBox;
+    @FXML private RadioButton radioButtonHL;
+    @FXML private RadioButton radioButtonLH;
+    @FXML private RadioButton radioButtonAZ;
+    @FXML private RadioButton radioButtonZA;
+    @FXML private Label labelInvValue;
+    @FXML private Label labelGenreValue;
 
     // Create local list of products that can be manipulated
     ArrayList<Product> inventory = Inventory.getProducts();
@@ -27,26 +27,26 @@ public class StoreViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
         // Setup view objects
-        ComboBox.getItems().addAll(Inventory.getGenres());
-        ListView.getItems().addAll(inventory);
+        comboBox.getItems().addAll(Inventory.getGenres());
+        listView.getItems().addAll(inventory);
 
-        RadioButtonAZ.fire();
+        radioButtonAZ.fire();
         initListView();
 
         // Add all radio buttons into a toggle group
         ToggleGroup sortToggleGroup = new ToggleGroup();
-        RadioButtonHL.setToggleGroup(sortToggleGroup);
-        RadioButtonLH.setToggleGroup(sortToggleGroup);
-        RadioButtonAZ.setToggleGroup(sortToggleGroup);
-        RadioButtonZA.setToggleGroup(sortToggleGroup);
+        radioButtonHL.setToggleGroup(sortToggleGroup);
+        radioButtonLH.setToggleGroup(sortToggleGroup);
+        radioButtonAZ.setToggleGroup(sortToggleGroup);
+        radioButtonZA.setToggleGroup(sortToggleGroup);
 
         // Update the view when a new product is selected
-        ListView.getSelectionModel().selectedIndexProperty().addListener(
+        listView.getSelectionModel().selectedIndexProperty().addListener(
                 (observable, oldValue, newValue) -> updateViewWithSelectedProduct()
         );
 
         // Update the list to show products in the selected genre
-        ComboBox.getSelectionModel().selectedIndexProperty().addListener(
+        comboBox.getSelectionModel().selectedIndexProperty().addListener(
                 (observable, oldValue, newValue) -> genreSelected()
         );
 
@@ -56,7 +56,7 @@ public class StoreViewController implements Initializable {
         );
 
         // Sell the selected product
-        SellButton.setOnAction((event -> sellButtonPushed()));
+        sellButton.setOnAction((event -> sellButtonPushed()));
 
         // Finalize view setup
         Inventory.setProductTreeMap(inventory);
@@ -71,17 +71,17 @@ public class StoreViewController implements Initializable {
      * and automatically selecting the first item in the list
      */
     public void initListView(){
-        ListView.getSelectionModel().selectFirst();
-        ListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        listView.getSelectionModel().selectFirst();
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     /**
      * Update the view to match the selected product in the list
      */
     public void updateViewWithSelectedProduct() {
-        Product product = (Product) ListView.getSelectionModel().getSelectedItem();
+        Product product = (Product) listView.getSelectionModel().getSelectedItem();
         if (product != null){
-            ImageView.setImage(product.getImage());
+            imageView.setImage(product.getImage());
         }
     }
 
@@ -90,60 +90,60 @@ public class StoreViewController implements Initializable {
      */
     public void sortProducts(){
         ArrayList<Product> sorted;
-        if (RadioButtonAZ.isSelected()) {
-            if (ComboBox.getValue() == null) {
+        if (radioButtonAZ.isSelected()) {
+            if (comboBox.getValue() == null) {
                 sorted = inventory;
                 Collections.sort(sorted);
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             } else {
-                String selectedGenre = ComboBox.getValue();
+                String selectedGenre = comboBox.getValue();
                 sorted = Inventory.getProductsInGenre(selectedGenre);
                 Collections.sort(sorted);
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             }
         }
-        if (RadioButtonZA.isSelected()) {
-            if (ComboBox.getValue() == null) {
+        if (radioButtonZA.isSelected()) {
+            if (comboBox.getValue() == null) {
                 sorted = inventory;
                 Collections.sort(sorted, Collections.reverseOrder());
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             } else {
-                String selectedGenre = ComboBox.getValue();
+                String selectedGenre = comboBox.getValue();
                 sorted = Inventory.getProductsInGenre(selectedGenre);
                 Collections.sort(sorted, Collections.reverseOrder());
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             }
         }
-        if (RadioButtonHL.isSelected()) {
-            if (ComboBox.getValue() == null) {
+        if (radioButtonHL.isSelected()) {
+            if (comboBox.getValue() == null) {
                 sorted = inventory;
                 Collections.sort(sorted, (a,b) -> (a.getPrice() < b.getPrice()) ? 1 : -1);
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             } else {
-                String selectedGenre = ComboBox.getValue();
+                String selectedGenre = comboBox.getValue();
                 sorted = Inventory.getProductsInGenre(selectedGenre);
                 Collections.sort(sorted, (a,b) -> (a.getPrice() < b.getPrice()) ? 1 : -1);
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             }
         }
-        if (RadioButtonLH.isSelected()) {
-            if (ComboBox.getValue() == null) {
+        if (radioButtonLH.isSelected()) {
+            if (comboBox.getValue() == null) {
                 sorted = inventory;
                 Collections.sort(sorted, (a,b) -> (a.getPrice() > b.getPrice()) ? 1 : -1);
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             } else {
-                String selectedGenre = ComboBox.getValue();
+                String selectedGenre = comboBox.getValue();
                 sorted = Inventory.getProductsInGenre(selectedGenre);
                 Collections.sort(sorted, (a,b) -> (a.getPrice() > b.getPrice()) ? 1 : -1);
-                ListView.getItems().clear();
-                ListView.getItems().addAll(sorted);
+                listView.getItems().clear();
+                listView.getItems().addAll(sorted);
             }
         }
 
@@ -159,7 +159,7 @@ public class StoreViewController implements Initializable {
         Double val = inventory.stream()
                 .mapToDouble(p -> p.getPrice() * p.getStock())
                 .sum();
-        LabelInvValue.setText("$ "+ df.format(val));
+        labelInvValue.setText("$ "+ df.format(val));
     }
 
     /**
@@ -167,14 +167,14 @@ public class StoreViewController implements Initializable {
      * If not genre is selected "N/A" is displayed
      */
     public void genreVal(){
-        if (ComboBox.getValue() == null){
-            LabelGenreValue.setText("N/A");
+        if (comboBox.getValue() == null){
+            labelGenreValue.setText("N/A");
         }else {
             DecimalFormat df = new DecimalFormat("#.00");
-            Double val = ListView.getItems().stream()
+            Double val = listView.getItems().stream()
                     .mapToDouble(p -> p.getPrice() * p.getStock())
                     .sum();
-            LabelGenreValue.setText("$ " + df.format(val));
+            labelGenreValue.setText("$ " + df.format(val));
         }
     }
 
@@ -183,11 +183,11 @@ public class StoreViewController implements Initializable {
      * inventory and stock values
      */
     public void sellButtonPushed(){
-        Product p = ListView.getSelectionModel().getSelectedItem();
+        Product p = listView.getSelectionModel().getSelectedItem();
         inventory.remove(p);
         p.sellItem();
         inventory.add(p);
-        ListView.refresh();
+        listView.refresh();
         invVal();
         genreVal();
     }
@@ -196,8 +196,8 @@ public class StoreViewController implements Initializable {
      * Update the list with the products in the selected genre
      */
     public void genreSelected(){
-        ListView.getItems().clear();
-        ListView.getItems().addAll(Inventory.getProductsInGenre((String) ComboBox.getValue()));
+        listView.getItems().clear();
+        listView.getItems().addAll(Inventory.getProductsInGenre((String) comboBox.getValue()));
         initListView();
         sortProducts();
         genreVal();
