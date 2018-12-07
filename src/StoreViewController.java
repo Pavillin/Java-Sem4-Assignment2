@@ -29,6 +29,7 @@ public class StoreViewController implements Initializable {
         // Setup view objects
         ComboBox.getItems().addAll(Inventory.getGenres());
         ListView.getItems().addAll(inventory);
+
         RadioButtonAZ.fire();
         initListView();
 
@@ -79,7 +80,9 @@ public class StoreViewController implements Initializable {
      */
     public void updateViewWithSelectedProduct() {
         Product product = (Product) ListView.getSelectionModel().getSelectedItem();
-        ImageView.setImage(product.getImage());
+        if (product != null){
+            ImageView.setImage(product.getImage());
+        }
     }
 
     /**
