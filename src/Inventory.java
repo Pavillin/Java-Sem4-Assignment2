@@ -5,16 +5,16 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 public class Inventory {
-    static TreeMap<String, LinkedList> productTreeMap = new TreeMap<>();
+    TreeMap<String, LinkedList> productTreeMap = new TreeMap<>();
 
 
-    public static ArrayList getGenres(){
+    public ArrayList getGenres(){
         String validGenres[] = {"Action", "Action-Adventure", "Adventure", "Role-Playing", "Simulation",
                                 "Strategy", "Sports", "MMO"};
         ArrayList<String> genres = new ArrayList<>(Arrays.asList(validGenres));
         return genres;
     }
-    public static ArrayList getProducts(){
+    public ArrayList getProducts(){
         Product product1 = new Product("Rocket League", "E", "Sports", 29.99, 7, new Image("Images/rocketleague.jpg"));
         Product product2 = new Product("Grand Theft Auto V", "M", "Action", 29.99, 4, new Image("Images/gta5.jpg"));
         Product product3 = new Product("Red Dead Redemption 2", "M", "Action-Adventure", 79.99, 10, new Image("Images/rdr2.jpg"));
@@ -43,7 +43,7 @@ public class Inventory {
      * @param genre
      * @return
      */
-    public static ArrayList getProductsInGenre(String genre){
+    public ArrayList getProductsInGenre(String genre){
         ArrayList<Product> productsInGenre = new ArrayList<>();
         productsInGenre.addAll(productTreeMap.get(genre));
 
@@ -55,7 +55,7 @@ public class Inventory {
      * otherwise create a new genre and add product
      * @param product
      */
-    public static void addProductToGenre(Product product){
+    public void addProductToGenre(Product product){
         //LinkedList<Product> productLinkedList = new LinkedList<>();
         if (!productTreeMap.containsKey(product.getGenre())){
             LinkedList<Product> productLinkedList = new LinkedList<>();
@@ -66,7 +66,7 @@ public class Inventory {
         }
     }
 
-    public static void setProductTreeMap(ArrayList<Product> products){
+    public void setProductTreeMap(ArrayList<Product> products){
         for (Product product : products){
             addProductToGenre(product);
         }

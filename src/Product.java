@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Product implements Comparable<Product> {
+    // Create instance of inventory class
+    Inventory inventory = new Inventory();
     private String title, rating, genre;
     private double price;
     private int stock;
@@ -70,7 +72,7 @@ public class Product implements Comparable<Product> {
         if (genre.isEmpty()){
             throw new IllegalArgumentException("Genre cannot be empty.");
         }
-        ArrayList<String> validGenres = Inventory.getGenres();
+        ArrayList<String> validGenres = inventory.getGenres();
         for (int i = 0; i < validGenres.size(); i++){
             if (validGenres.contains(genre)){
                 this.genre = genre;
