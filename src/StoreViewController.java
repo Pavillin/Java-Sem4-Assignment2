@@ -175,7 +175,7 @@ public class StoreViewController implements Initializable {
         if (comboBox.getValue() == null || comboBox.getValue().equals("All")){
             labelGenreValue.setText("N/A");
         }else {
-            DecimalFormat df = new DecimalFormat("#.00");
+            DecimalFormat df = new DecimalFormat("#0.00");
             Double val = listView.getItems().stream()
                     .mapToDouble(p -> p.getPrice() * p.getStock())
                     .sum();
