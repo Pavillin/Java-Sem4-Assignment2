@@ -31,6 +31,7 @@ public class StoreViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
         // Setup view objects
+        comboBox.getItems().add("All");
         comboBox.getItems().addAll(inventory.getGenres());
         listView.getItems().addAll(productList);
 
@@ -95,7 +96,7 @@ public class StoreViewController implements Initializable {
     public void sortProducts(){
         ArrayList<Product> sorted;
         if (radioButtonAZ.isSelected()) {
-            if (comboBox.getValue() == null) {
+            if (comboBox.getValue() == null || comboBox.getValue().equals("All")) {
                 sorted = productList;
                 Collections.sort(sorted);
                 listView.getItems().clear();
@@ -109,7 +110,7 @@ public class StoreViewController implements Initializable {
             }
         }
         if (radioButtonZA.isSelected()) {
-            if (comboBox.getValue() == null) {
+            if (comboBox.getValue() == null || comboBox.getValue().equals("All")) {
                 sorted = productList;
                 Collections.sort(sorted, Collections.reverseOrder());
                 listView.getItems().clear();
@@ -123,7 +124,7 @@ public class StoreViewController implements Initializable {
             }
         }
         if (radioButtonHL.isSelected()) {
-            if (comboBox.getValue() == null) {
+            if (comboBox.getValue() == null || comboBox.getValue().equals("All")) {
                 sorted = productList;
                 Collections.sort(sorted, (a,b) -> (a.getPrice() < b.getPrice()) ? 1 : -1);
                 listView.getItems().clear();
@@ -137,7 +138,7 @@ public class StoreViewController implements Initializable {
             }
         }
         if (radioButtonLH.isSelected()) {
-            if (comboBox.getValue() == null) {
+            if (comboBox.getValue() == null || comboBox.getValue().equals("All")) {
                 sorted = productList;
                 Collections.sort(sorted, (a,b) -> (a.getPrice() > b.getPrice()) ? 1 : -1);
                 listView.getItems().clear();
@@ -171,7 +172,7 @@ public class StoreViewController implements Initializable {
      * If not genre is selected "N/A" is displayed
      */
     public void genreVal(){
-        if (comboBox.getValue() == null){
+        if (comboBox.getValue() == null || comboBox.getValue().equals("All")){
             labelGenreValue.setText("N/A");
         }else {
             DecimalFormat df = new DecimalFormat("#.00");
@@ -201,7 +202,12 @@ public class StoreViewController implements Initializable {
      */
     public void genreSelected(){
         listView.getItems().clear();
-        listView.getItems().addAll(inventory.getProductsInGenre(comboBox.getValue()));
+        if (comboBox.getValue().equals("All")){
+            comboBox.setValue(null);
+            listView.getItems().addAll(productList);
+        }else{
+            listView.getItems().addAll(inventory.getProductsInGenre(comboBox.getValue()));
+        }
         initListView();
         sortProducts();
         genreVal();
